@@ -10,14 +10,15 @@ import AVKit
 
 // MARK: - DockPlayerDelegate
 protocol DockPlayerDelegate where Self: UIViewController {
+    var playerInstantiated: (() -> Void)? { get set }
     var backDownButton: UIButton? { get }
     var isDockingAllowed: Bool { get }
     var playerView: UIView { get }
-    var player: AVPlayer { get }
+    var player: AVPlayer? { get }
     var playerWidthConstraint: NSLayoutConstraint { get }
 
     func isRotationAllowed(_ playerView: UIView?) -> Bool
-    func refreshContent<T>(with contentViewModel: T)
+    func refreshContent<T>(with contentModel: T)
     func refreshScreen(_ forceRefresh: Bool)
     func setOpeningPoster(with image: UIImage?)
     func updatePlayerControls(for dockState: DockPlayer.DockState, _ isPlayerInitialized: Bool, _ isFlicked: Bool)
@@ -112,8 +113,6 @@ class DockPlayer {
 
     var swipeDirection = SwipeDirection.none
     var isPlayerInitialized = false
-    var currentOrientation = UIDeviceOrientation.landscapeRight
-    var isAppUnfoldAllowed = true
 
     // MARK: - Private Properties
     private var isVertical = false {
@@ -231,7 +230,7 @@ class DockPlayer {
 
     // MARK: - Methods
     func initialize<T>(_ detailVC: DockPlayerDelegate, for content: T, with imageView: UIImageView? = nil) {
-        setOpeningAnimationFromImage(imageView) /// This will save animatorFrame and Image
+        setOpeningAnimationFromImage(imageView) /// This will save animatorFrame and Image for sweet opening animation
 //        detailVC.contentViewModel = content
         detailBaseController = detailVC
         dockableView = detailVC.view
@@ -242,7 +241,7 @@ class DockPlayer {
             completion?()
             return
         }
-        UIView.animateKeyframes(withDuration: animationTime, delay: 0.0, options: [], animations: {
+        UIView.animateKeyframes(withDuration: animationTime, delay: 0.0, animations: {
             sceneDelegate?.window?.bringSubviewToFront(dockView)
         }, completion: { _ in
             completion?()
@@ -251,10 +250,6 @@ class DockPlayer {
 
     func detailExists() -> Bool {
         return detailBaseController != nil
-    }
-
-    func setupOrientationHandler() {
-        NotificationCenter.default.addObserver(self, selector: #selector(deviceDidRotate), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
 
     // MARK: Back Button handling
@@ -291,7 +286,7 @@ class DockPlayer {
 
         UIView.animate(withDuration: animationTime, delay: 0.0, options: .curveEaseIn, animations: { [weak self] in
             dockView.transform = .identity
-            if let _ = self?.animator.frame {
+            if let _ = self?.animator.frame, self?.detailBaseController?.player == nil {
                 dockView.frame = .zero
                 dockView.center = sceneDelegate?.window?.center ?? .zero
                 dockView.alpha = .zero
@@ -346,7 +341,7 @@ class DockPlayer {
 
     // MARK: Reset dock frame to full
     func resetFrame(completion: (() -> Void)? = nil) {
-        guard playerMode == .smallScreen, let window = sceneDelegate?.window, let dockView = dockableView, let player = playerView, let detailControllerRootViewSubviews = self.getDetailSubviews() else {
+        guard playerMode == .smallScreen, let window = sceneDelegate?.window, let dockView = dockableView, let detailControllerRootViewSubviews = self.getDetailSubviews() else {
             completion?()
             return
         }
@@ -366,18 +361,9 @@ class DockPlayer {
         UIView.animate(withDuration: animationTime, delay: 0.0, options: .curveEaseOut, animations: { [weak self] in
             dockView.frame = window.frame
             self?.backDownButton.alpha = 1.0
-            detailControllerRootViewSubviews.filter { (subview) -> Bool in
-                return !subview.subviews.contains(player)
-            }.forEach {
-                if $0.viewWithTag(666) != nil {
-                    $0.subviews.filter({ $0.tag != 666 }).forEach({ view in
-                        view.alpha = 1
-                        view.isUserInteractionEnabled = true
-                    })
-                } else {
-                    $0.alpha = 1
-                    $0.isUserInteractionEnabled = true
-                }
+            detailControllerRootViewSubviews.forEach {
+                $0.alpha = 1
+                $0.isUserInteractionEnabled = true
             }
         }, completion: { [weak self] _ in
             self?.dockState = .undocked
@@ -386,29 +372,8 @@ class DockPlayer {
         })
     }
 
-    // MARK: - Objective C Methods
-    @objc func deviceDidRotate(_ notification: Notification) {
-        DispatchQueue.main.async {
-
-            let orientation = UIDevice.current.orientation
-            if orientation == .unknown { return }
-
-            if !isPhone {
-                if orientation == .landscapeRight || orientation == .landscapeLeft {
-                    self.currentOrientation = orientation
-                } else {
-                    if self.currentOrientation == .landscapeRight {
-                        UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
-                    } else {
-                        UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-                    }
-                }
-            }
-        }
-    }
-
     // MARK: Gesture setup
-    @objc func setupGestureOnPlayerView(notification: Notification) {
+    func setupGestureOnPlayerView() {
         guard isDockingAllowed else { return }
 
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(_:)))
@@ -443,15 +408,15 @@ class DockPlayer {
 
     private func makeViewDockable() {
         guard let dockView = dockableView, let window = sceneDelegate?.window else { return }
-
-        NotificationCenter.default.addObserver(self, selector: #selector(setupGestureOnPlayerView(notification:)), name: NSNotification.Name(rawValue: "PlayerInstantiatedNotification"), object: nil)
-
         window.addSubview(dockView)
-        setupOpeningAnimation(for: dockView, from: window) {
+        bringDockPlayerToTop()
+        setupOpeningAnimation(for: dockView, from: window) { [unowned self] in
             self.addShadowBehindDockView()
         }
-
-        bringDockPlayerToTop()
+        detailBaseController?.playerInstantiated = { [unowned  self] in
+            self.isPlayerInitialized = true
+            self.setupGestureOnPlayerView()
+        }
     }
 
     private func setupOpeningAnimation(for dockView: UIView, from window: UIWindow, completion: (() -> Void)? = nil) {
@@ -549,7 +514,7 @@ class DockPlayer {
 
     // MARK: Undock
     func updateDetailViewFrameToFullMode(completion: (() -> Void)? = nil) {
-        guard let window = sceneDelegate?.window, let dockView = dockableView, let player = playerView, let detailControllerRootViewSubviews = self.getDetailSubviews() else {
+        guard let window = sceneDelegate?.window, let dockView = dockableView, let detailControllerRootViewSubviews = self.getDetailSubviews() else {
             completion?()
             return
         }
@@ -574,18 +539,9 @@ class DockPlayer {
             dockView.frame = window.frame
             self?.dockState = .undocking
             self?.manageShadow(value: 0.0)
-            detailControllerRootViewSubviews.filter { (subview) -> Bool in
-                return !subview.subviews.contains(player)
-            }.forEach {
-                if $0.viewWithTag(666) != nil {
-                    $0.subviews.filter({ $0.tag != 666 }).forEach({ view in
-                        view.alpha = 1
-                        view.isUserInteractionEnabled = true
-                    })
-                } else {
-                    $0.alpha = 1
-                    $0.isUserInteractionEnabled = true
-                }
+            detailControllerRootViewSubviews.forEach {
+                $0.alpha = 1
+                $0.isUserInteractionEnabled = true
             }
             self?.backDownButton.alpha = 1.0
         }, completion: { [weak self] _ in
@@ -602,7 +558,7 @@ class DockPlayer {
             return
         }
 
-        guard let dockView = dockableView, let player = playerView, let detailControllerRootViewSubviews = self.getDetailSubviews() else {
+        guard let dockView = dockableView, let detailControllerRootViewSubviews = self.getDetailSubviews() else {
             completion?()
             return
         }
@@ -610,7 +566,6 @@ class DockPlayer {
         if isPad, var widthConstraint = detailBaseController?.playerWidthConstraint {
             widthConstraint = widthConstraint.setMultiplier(multiplier: 1.0)
         }
-        isAppUnfoldAllowed = true
         detailBaseController?.docking(percentMoved: 0)
         let dockFrame = CGRect(x: self.finalDistanceFromLeft, y: self.finalDistanceFromTop, width: self.minWidth, height: self.minHeight)
 
@@ -621,18 +576,9 @@ class DockPlayer {
             self?.dockState = .docking
             self?.manageShadow(value: 1)
 
-            detailControllerRootViewSubviews.filter { (subview) -> Bool in
-                return !subview.subviews.contains(player)
-            }.forEach {
-                if $0.viewWithTag(666) != nil {
-                    $0.subviews.filter({ $0.tag != 666 }).forEach({ view in
-                        view.alpha = 0
-                        view.isUserInteractionEnabled = false
-                    })
-                } else {
-                    $0.alpha = 0
-                    $0.isUserInteractionEnabled = false
-                }
+            detailControllerRootViewSubviews.forEach {
+                $0.alpha = 0
+                $0.isUserInteractionEnabled = false
             }
             self?.backDownButton.alpha = 0.0
         }, completion: { [weak self] _ in
@@ -648,7 +594,6 @@ class DockPlayer {
     // MARK: Swipe Up/Down following finger
     private func movingSwipeVertical() {
         let currentDistanceFromTop = (dockState == .docking || dockState == .undocked) ? currentPoint.y : (finalDistanceFromTop - abs(currentPoint.y))
-
         let percentMoved = CGFloat(Int((currentDistanceFromTop / finalDistanceFromTop) * 10000)) / 10000
         let currentX = finalDistanceFromLeft * percentMoved
         let currentY = finalDistanceFromTop * percentMoved
@@ -664,7 +609,7 @@ class DockPlayer {
             return
         }
 
-        guard let dockView = dockableView, let detailControllerRootViewSubviews = getDetailSubviews(), let player = playerView else { return }
+        guard let dockView = dockableView, let detailControllerRootViewSubviews = getDetailSubviews() else { return }
 
         if isPad, var widthConstraint = detailBaseController?.playerWidthConstraint {
             widthConstraint = widthConstraint.setMultiplier(multiplier: minimumMultiplerForHorizontalMovement + percentMoved * horizontalDeltaMultiplier)
@@ -674,18 +619,9 @@ class DockPlayer {
 
         UIView.animate(withDuration: animationTime, delay: 0.0, options: .curveEaseOut, animations: { [weak self] in
             CATransaction.setDisableActions(true)
-            detailControllerRootViewSubviews.filter { (subview) -> Bool in
-                return !subview.subviews.contains(player)
-            }.forEach {
-                if $0.viewWithTag(666) != nil {
-                    $0.subviews.filter({ $0.tag != 666 }).forEach({ view in
-                        view.alpha = alpha
-                        view.isUserInteractionEnabled = false
-                    })
-                } else {
-                    $0.alpha = alpha
-                    $0.isUserInteractionEnabled = false
-                }
+            detailControllerRootViewSubviews.forEach {
+                $0.alpha = alpha
+                $0.isUserInteractionEnabled = false
             }
             self?.backDownButton.alpha = alpha
             self?.manageShadow(value: Float(percentMoved))
