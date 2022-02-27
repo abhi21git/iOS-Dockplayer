@@ -45,6 +45,6 @@ class HomeLandingVC: BaseController {
     }
 
     @IBAction func watchButtonAction() {
-        
+        DockPlayer.manager.initialize(DetailPageController.instantiate(from: .detailPage), for: "", with: posterImageView)
     }
 }

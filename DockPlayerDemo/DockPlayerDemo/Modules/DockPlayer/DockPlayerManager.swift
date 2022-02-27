@@ -230,19 +230,11 @@ class DockPlayer {
 
 
     // MARK: - Methods
-    func initialize<T>(with content: T, with imageView: UIImageView? = nil) {
-        setOpeningAnimationFromImage(imageView)
-        if detailExists() {
-            resetFrame()
-            detailBaseController?.setOpeningPoster(with: animator.imageView?.image)
-            detailBaseController?.refreshContent(with: content)
-        } else {
-            let detailVC = DetailPageController.instantiate(from: .detailPage)
-            let navigation = UINavigationController(rootViewController: detailVC)
-//            detailVC.contentViewModel = content
-            detailBaseController = detailVC
-            dockableView = navigation.view
-        }
+    func initialize<T>(_ detailVC: DockPlayerDelegate, for content: T, with imageView: UIImageView? = nil) {
+        setOpeningAnimationFromImage(imageView) /// This will save animatorFrame and Image
+//        detailVC.contentViewModel = content
+        detailBaseController = detailVC
+        dockableView = detailVC.view
     }
 
     func bringDockPlayerToTop(completion: (() -> Void)? = nil) {
@@ -299,12 +291,11 @@ class DockPlayer {
 
         UIView.animate(withDuration: animationTime, delay: 0.0, options: .curveEaseIn, animations: { [weak self] in
             dockView.transform = .identity
-//            if self?.dockState == .undocked {
-//                dockView.frame = .zero
-//                dockView.center = sceneDelegate?.window?.center ?? .zero
-//                dockView.alpha = .zero
-//            } else
-            if self?.swipeDirection == .left && !forceRemove {
+            if let _ = self?.animator.frame {
+                dockView.frame = .zero
+                dockView.center = sceneDelegate?.window?.center ?? .zero
+                dockView.alpha = .zero
+            } else if self?.swipeDirection == .left && !forceRemove {
                 dockView.transform = CGAffineTransform(translationX: -(self?.screenWidth ?? 1000), y: 0.0)
             } else {
                 dockView.transform = CGAffineTransform(translationX: self?.screenWidth ?? 1000, y: 0.0)
@@ -319,6 +310,7 @@ class DockPlayer {
     // MARK: Deallocation
     private func deallocateDockplayer() {
         NotificationCenter.default.removeObserver(self)
+        animator.frame = nil
         detailBaseController = nil
         dockableView?.removeFromSuperview()
         isBeingReset = false
@@ -478,13 +470,9 @@ class DockPlayer {
         detailBaseController?.view.clipsToBounds = true
         dockView.clipsToBounds = true
         dockView.frame = frame
-        let bgColor = detailBaseController?.view.backgroundColor
-        detailBaseController?.view.backgroundColor = .clear
         UIView.animate(withDuration: animationTime, delay: 0.0, options: [], animations: {
             dockView.frame = window.frame
-            self.detailBaseController?.view.backgroundColor = bgColor
         }, completion: { _ in
-            self.animator.frame = nil
             completion?()
         })
     }

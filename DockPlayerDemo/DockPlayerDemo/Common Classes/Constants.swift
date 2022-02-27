@@ -14,8 +14,8 @@ let hasTopNotch: Bool = sceneDelegate?.window?.safeAreaInsets.top ?? 0 > 20
 
 enum AppStoryboard: String {
 
-    case homeLanding = "HomeLandingVC"
-    case detailPage = "DetailPageController"
+    case homeLanding = "HomeLanding"
+    case detailPage = "DetailPage"
 
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: Bundle.main)

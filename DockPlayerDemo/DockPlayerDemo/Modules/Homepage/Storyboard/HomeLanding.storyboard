@@ -82,6 +82,9 @@
                                                         <real key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="watchButtonAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="T2E-BY-3ul"/>
+                                                </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="abP-ew-Qfg">
                                                 <rect key="frame" x="20" y="20.000000000000004" width="162" height="51.333333333333343"/>

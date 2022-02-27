@@ -10,12 +10,22 @@ import AVFoundation
 
 class DetailPageController: BaseController {
 
+    @IBOutlet weak var playerContainerView: UIView!
+    @IBOutlet weak var posterImageView: UIImageView!
+    @IBOutlet weak var playerContainerWidthConstraint: NSLayoutConstraint! /// Set this to 1.0 for iPhone & fullscreen, and 0.5 for smallscreen
+    @IBOutlet weak var iPadRightContainerView: UIView!
+    @IBOutlet weak var BottomContainerView: UIView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Add code here
     }
-
+    @IBAction func backDownButtonAction() {
+        DockPlayer.manager.removeDockPlayer()
+    }
+    
 }
 
 extension DetailPageController: DockPlayerDelegate {
