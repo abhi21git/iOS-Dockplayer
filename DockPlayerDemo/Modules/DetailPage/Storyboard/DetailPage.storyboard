@@ -3,8 +3,8 @@
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,6 +16,116 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DOx-Pl-QiB" userLabel="RightScrollView">
+                                <rect key="frame" x="390" y="44" width="0.0" height="800"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qIa-Na-f69" userLabel="RightContainerView">
+                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="1747.3333333333333"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="VXL-yV-b4E">
+                                                <rect key="frame" x="30" y="30" width="0.0" height="1687.3333333333333"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="500" verticalCompressionResistancePriority="1000" text="Clips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFy-ud-ZAu">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="23.333333333333332"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="253" verticalHuggingPriority="253" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="clip2" translatesAutoresizingMaskIntoConstraints="NO" id="Ovx-sM-Uso">
+                                                        <rect key="frame" x="0.0" y="43.333333333333314" width="0.0" height="200"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="200" id="Hxc-ND-np3"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="20"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" image="clip3" translatesAutoresizingMaskIntoConstraints="NO" id="Nsj-ls-sny">
+                                                        <rect key="frame" x="0.0" y="263.33333333333326" width="0.0" height="776"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="20"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" image="clip1" translatesAutoresizingMaskIntoConstraints="NO" id="Uq4-lM-Gsi">
+                                                        <rect key="frame" x="0.0" y="1059.3333333333333" width="0.0" height="628"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="20"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="VXL-yV-b4E" firstAttribute="leading" secondItem="qIa-Na-f69" secondAttribute="leading" constant="30" id="8Iv-ia-gPi"/>
+                                            <constraint firstAttribute="bottom" secondItem="VXL-yV-b4E" secondAttribute="bottom" constant="30" id="YmR-b8-fqU"/>
+                                            <constraint firstAttribute="trailing" secondItem="VXL-yV-b4E" secondAttribute="trailing" priority="999" constant="30" id="gIJ-i9-U5W"/>
+                                            <constraint firstItem="VXL-yV-b4E" firstAttribute="top" secondItem="qIa-Na-f69" secondAttribute="top" constant="30" id="urq-hU-P2Q"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="qIa-Na-f69" secondAttribute="bottom" id="6tm-CO-GEk"/>
+                                    <constraint firstItem="qIa-Na-f69" firstAttribute="height" secondItem="DOx-Pl-QiB" secondAttribute="height" priority="250" id="Ukv-J1-iXY"/>
+                                    <constraint firstItem="qIa-Na-f69" firstAttribute="width" secondItem="DOx-Pl-QiB" secondAttribute="width" id="cfS-WT-lmt"/>
+                                    <constraint firstAttribute="trailing" secondItem="qIa-Na-f69" secondAttribute="trailing" id="fPm-Cj-kG1"/>
+                                    <constraint firstItem="qIa-Na-f69" firstAttribute="top" secondItem="DOx-Pl-QiB" secondAttribute="top" id="qXF-2Q-cMc"/>
+                                    <constraint firstItem="qIa-Na-f69" firstAttribute="leading" secondItem="DOx-Pl-QiB" secondAttribute="leading" id="wWX-FI-mAa"/>
+                                </constraints>
+                            </scrollView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QDv-NZ-k4r" userLabel="BottomScrollView">
+                                <rect key="frame" x="0.0" y="263.33333333333331" width="390" height="580.66666666666674"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xm3-51-2xI" userLabel="BottomContainerView">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="1333.3333333333333"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deadpool" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vVA-ip-4tz">
+                                                <rect key="frame" x="20" y="30" width="350" height="28.666666666666671"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
+                                                <color key="textColor" name="AccentColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4UE-FK-c3A">
+                                                <rect key="frame" x="20" y="78.666666666666629" width="350" height="1224.666666666667"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <mutableString key="text">Deadpool is a 2016 American superhero film based on the Marvel Comics character of the same name. Distributed by 20th Century Fox, it is a spin-off in the X-Men film series and the eighth installment overall. Directed by Tim Miller from a screenplay by Rhett Reese and Paul Wernick, it stars Ryan Reynolds in the title role alongside Morena Baccarin, Ed Skrein, T. J. Miller, Gina Carano, and Brianna Hildebrand. In the film, Wade Wilson hunts the man who gave him mutant abilities and a scarred physical appearance, becoming the antihero Deadpool.
+
+Development of a Deadpool film starring Reynolds began in February 2004, before he played the character in X-Men Origins: Wolverine in 2009. Reese and Wernick were hired for a spinoff in 2010 and worked with Reynolds to adapt the character more faithfully (including his fourth wall breaking) after the portrayal in Wolverine was criticized. Miller was hired in 2011, marking his directorial debut. An enthusiastic response to leaked test footage he created with Reynolds led to a green-light from Fox in 2014. Additional casting began in early 2015, and filming took place in Vancouver, British Columbia, from March to May of that year. Several vendors provided visual effects for the film, ranging from the addition of blood and gore to the creation of the CG character Colossus.
+
+Deadpool was released in the United States on February 12, 2016, after an unconventional marketing campaign. The film achieved both financial and critical success. It earned over $782 million against a $58 million budget, becoming the ninth-highest-grossing film of 2016 and breaking numerous records, including highest-grossing X-Men film and R-rated film at the time. Critics praised Reynolds' performance, the film's style and faithfulness to the comics, along with its action sequences, though some criticized the plot as formulaic and were divided on the film's adult humor. It received many awards and nominations, including two Critics' Choice Awards and two Golden Globe nominations. A sequel, Deadpool 2, was released in 2018. Following the acquisition of 21st Century Fox by Disney, a third film is in development at Marvel Studios.</mutableString>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="4UE-FK-c3A" firstAttribute="top" secondItem="vVA-ip-4tz" secondAttribute="bottom" constant="20" id="3wS-hp-GVt"/>
+                                            <constraint firstAttribute="bottom" secondItem="4UE-FK-c3A" secondAttribute="bottom" constant="30" id="4yF-e2-ajh"/>
+                                            <constraint firstItem="4UE-FK-c3A" firstAttribute="leading" secondItem="vVA-ip-4tz" secondAttribute="leading" id="5Gn-OI-9Ly"/>
+                                            <constraint firstAttribute="trailing" secondItem="vVA-ip-4tz" secondAttribute="trailing" constant="20" id="DtP-gV-Zrf"/>
+                                            <constraint firstItem="vVA-ip-4tz" firstAttribute="top" secondItem="Xm3-51-2xI" secondAttribute="top" constant="30" id="JTK-ba-e0M"/>
+                                            <constraint firstItem="vVA-ip-4tz" firstAttribute="leading" secondItem="Xm3-51-2xI" secondAttribute="leading" constant="20" id="YBf-4d-ooR"/>
+                                            <constraint firstItem="4UE-FK-c3A" firstAttribute="trailing" secondItem="vVA-ip-4tz" secondAttribute="trailing" id="rSy-cx-pHK"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Xm3-51-2xI" firstAttribute="height" secondItem="QDv-NZ-k4r" secondAttribute="height" priority="250" id="5Km-m7-ht2"/>
+                                    <constraint firstAttribute="bottom" secondItem="Xm3-51-2xI" secondAttribute="bottom" id="Loy-Vt-1n7"/>
+                                    <constraint firstItem="Xm3-51-2xI" firstAttribute="width" secondItem="QDv-NZ-k4r" secondAttribute="width" id="STC-37-khX"/>
+                                    <constraint firstItem="Xm3-51-2xI" firstAttribute="leading" secondItem="QDv-NZ-k4r" secondAttribute="leading" id="cYI-L1-vSv"/>
+                                    <constraint firstAttribute="trailing" secondItem="Xm3-51-2xI" secondAttribute="trailing" id="mYV-U1-XPh"/>
+                                    <constraint firstItem="Xm3-51-2xI" firstAttribute="top" secondItem="QDv-NZ-k4r" secondAttribute="top" id="pGw-NQ-bXY"/>
+                                </constraints>
+                            </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l25-WY-Evc" userLabel="PlayerContainerView">
                                 <rect key="frame" x="0.0" y="44.000000000000014" width="390" height="219.33333333333337"/>
                                 <subviews>
@@ -26,19 +136,11 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="JCU-Ku-RgC" secondAttribute="trailing" id="23b-ws-3YU"/>
-                                    <constraint firstAttribute="width" secondItem="l25-WY-Evc" secondAttribute="height" multiplier="16:9" priority="999" id="7Ee-Ft-gu5"/>
+                                    <constraint firstAttribute="width" secondItem="l25-WY-Evc" secondAttribute="height" multiplier="16:9" id="7Ee-Ft-gu5"/>
                                     <constraint firstAttribute="bottom" secondItem="JCU-Ku-RgC" secondAttribute="bottom" id="Rds-Ew-sFJ"/>
                                     <constraint firstItem="JCU-Ku-RgC" firstAttribute="leading" secondItem="l25-WY-Evc" secondAttribute="leading" id="Snh-f5-b8a"/>
                                     <constraint firstItem="JCU-Ku-RgC" firstAttribute="top" secondItem="l25-WY-Evc" secondAttribute="top" id="eTs-pw-S9g"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qIa-Na-f69" userLabel="RightContainerView">
-                                <rect key="frame" x="390" y="44" width="0.0" height="800"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xm3-51-2xI" userLabel="BottomContainerView">
-                                <rect key="frame" x="0.0" y="263.33333333333331" width="390" height="580.66666666666674"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOj-iP-Lh9">
                                 <rect key="frame" x="0.0" y="44" width="50" height="40"/>
@@ -60,20 +162,20 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="qIa-Na-f69" firstAttribute="leading" secondItem="l25-WY-Evc" secondAttribute="trailing" id="48p-1s-c30"/>
+                            <constraint firstItem="DOx-Pl-QiB" firstAttribute="top" secondItem="l25-WY-Evc" secondAttribute="top" id="4pA-M4-AVp"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="top" secondItem="tOj-iP-Lh9" secondAttribute="top" id="5g5-NN-97H"/>
+                            <constraint firstItem="DOx-Pl-QiB" firstAttribute="bottom" secondItem="QDv-NZ-k4r" secondAttribute="bottom" id="7ia-tl-PU4"/>
+                            <constraint firstItem="QDv-NZ-k4r" firstAttribute="leading" secondItem="l25-WY-Evc" secondAttribute="leading" id="Bt3-nM-wwL"/>
                             <constraint firstItem="l25-WY-Evc" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="CSP-EZ-icM"/>
                             <constraint firstItem="l25-WY-Evc" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="J6n-au-ywT"/>
-                            <constraint firstAttribute="trailing" secondItem="qIa-Na-f69" secondAttribute="trailing" id="Q4b-FC-wLl"/>
-                            <constraint firstItem="Xm3-51-2xI" firstAttribute="top" secondItem="l25-WY-Evc" secondAttribute="bottom" id="TpR-0s-Onc"/>
-                            <constraint firstItem="qIa-Na-f69" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="VUp-3a-oIw"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="DOx-Pl-QiB" secondAttribute="trailing" id="SMr-8M-i06"/>
+                            <constraint firstItem="QDv-NZ-k4r" firstAttribute="top" secondItem="l25-WY-Evc" secondAttribute="bottom" id="TKE-38-zIb"/>
                             <constraint firstItem="l25-WY-Evc" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" placeholder="YES" id="ZUd-ao-Vwh"/>
+                            <constraint firstItem="DOx-Pl-QiB" firstAttribute="leading" secondItem="l25-WY-Evc" secondAttribute="trailing" id="aDa-k8-9XN"/>
+                            <constraint firstItem="QDv-NZ-k4r" firstAttribute="trailing" secondItem="l25-WY-Evc" secondAttribute="trailing" id="bJB-uM-7Pl"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="leading" secondItem="tOj-iP-Lh9" secondAttribute="leading" id="cAQ-eO-7ON"/>
-                            <constraint firstItem="Xm3-51-2xI" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="fFH-sL-Rjd"/>
                             <constraint firstItem="l25-WY-Evc" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.5" placeholder="YES" id="iwf-gK-9ft"/>
-                            <constraint firstItem="qIa-Na-f69" firstAttribute="leading" secondItem="Xm3-51-2xI" secondAttribute="trailing" id="mbN-5e-N0p"/>
-                            <constraint firstItem="qIa-Na-f69" firstAttribute="bottom" secondItem="Xm3-51-2xI" secondAttribute="bottom" id="mq1-Nz-Eep"/>
-                            <constraint firstAttribute="bottom" secondItem="Xm3-51-2xI" secondAttribute="bottom" id="s4T-zY-CS9"/>
+                            <constraint firstAttribute="bottom" secondItem="QDv-NZ-k4r" secondAttribute="bottom" id="r78-Wa-Iiq"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -97,14 +199,17 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="107"/>
+            <point key="canvasLocation" x="138.36017569546118" y="106.0546875"/>
         </scene>
     </scenes>
     <resources>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="clip1" width="1200" height="628"/>
+        <image name="clip2" width="2048" height="1152"/>
+        <image name="clip3" width="1024" height="776"/>
         <image name="posterImage" width="1600" height="900"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="AccentColor">
+            <color red="0.58823529411764708" green="0.11764705882352941" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
