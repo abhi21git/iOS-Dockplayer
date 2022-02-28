@@ -16,9 +16,9 @@ class DetailPageController: BaseController {
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var iPadRightContainerView: UIView!
     @IBOutlet weak var BottomContainerView: UIView!
-    @IBOutlet weak var playerContainerWidthConstraint: NSLayoutConstraint! /// Set this to 1.0 for iPhone & fullscreen, and 0.5 for smallscreen
     
     // MARK: - properties
+    var playerWidthConstraint: NSLayoutConstraint = NSLayoutConstraint() /// Set this to 1.0 for iPhone & fullscreen, and 0.5 for smallscreen
     var playerInstantiated: (() -> Void)? = nil /// Call this after player starts playing
     var avPlayer: AVPlayer?
     
@@ -73,9 +73,9 @@ class DetailPageController: BaseController {
     // MARK: - Methods
     func setupUI() {
         view.backgroundColor = .black
-        if isPad {
-            playerContainerWidthConstraint = playerContainerWidthConstraint.setMultiplier(multiplier: 0.5)
-        }
+        playerView.translatesAutoresizingMaskIntoConstraints = false
+        playerWidthConstraint = NSLayoutConstraint(item: playerView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: isPhone ? 1.0 : 0.5, constant: 0.0)
+        playerWidthConstraint.isActive = true
     }
     
     func setupPlayer() {
@@ -92,10 +92,6 @@ class DetailPageController: BaseController {
 
 // MARK: - Dockplayer extension
 extension DetailPageController: DockPlayerDelegate {
-    
-    var playerWidthConstraint: NSLayoutConstraint {
-        return playerContainerWidthConstraint
-    }
     
     var backDownButton: UIButton?  {
         return backButton

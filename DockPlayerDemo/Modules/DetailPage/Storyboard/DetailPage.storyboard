@@ -67,20 +67,31 @@
                             <constraint firstAttribute="trailing" secondItem="qIa-Na-f69" secondAttribute="trailing" id="Q4b-FC-wLl"/>
                             <constraint firstItem="Xm3-51-2xI" firstAttribute="top" secondItem="l25-WY-Evc" secondAttribute="bottom" id="TpR-0s-Onc"/>
                             <constraint firstItem="qIa-Na-f69" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="VUp-3a-oIw"/>
-                            <constraint firstItem="l25-WY-Evc" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" id="ZUd-ao-Vwh"/>
+                            <constraint firstItem="l25-WY-Evc" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" placeholder="YES" id="ZUd-ao-Vwh"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="leading" secondItem="tOj-iP-Lh9" secondAttribute="leading" id="cAQ-eO-7ON"/>
                             <constraint firstItem="Xm3-51-2xI" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="fFH-sL-Rjd"/>
+                            <constraint firstItem="l25-WY-Evc" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.5" placeholder="YES" id="iwf-gK-9ft"/>
                             <constraint firstItem="qIa-Na-f69" firstAttribute="leading" secondItem="Xm3-51-2xI" secondAttribute="trailing" id="mbN-5e-N0p"/>
                             <constraint firstItem="qIa-Na-f69" firstAttribute="bottom" secondItem="Xm3-51-2xI" secondAttribute="bottom" id="mq1-Nz-Eep"/>
                             <constraint firstAttribute="bottom" secondItem="Xm3-51-2xI" secondAttribute="bottom" id="s4T-zY-CS9"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="iwf-gK-9ft"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="ZUd-ao-Vwh"/>
+                                <include reference="iwf-gK-9ft"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="BottomContainerView" destination="Xm3-51-2xI" id="dRi-2b-5tf"/>
                         <outlet property="backButton" destination="tOj-iP-Lh9" id="aBa-xT-Sw2"/>
                         <outlet property="iPadRightContainerView" destination="qIa-Na-f69" id="xlu-Am-Up4"/>
                         <outlet property="playerContainerView" destination="l25-WY-Evc" id="E4G-y5-ahY"/>
-                        <outlet property="playerContainerWidthConstraint" destination="ZUd-ao-Vwh" id="YGt-5J-Sno"/>
                         <outlet property="posterImageView" destination="JCU-Ku-RgC" id="F4H-HF-GRJ"/>
                     </connections>
                 </viewController>

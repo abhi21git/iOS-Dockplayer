@@ -15,7 +15,7 @@ protocol DockPlayerDelegate where Self: UIViewController {
     var isDockingAllowed: Bool { get }
     var playerView: UIView { get }
     var player: AVPlayer? { get }
-    var playerWidthConstraint: NSLayoutConstraint { get }
+    var playerWidthConstraint: NSLayoutConstraint { get set }
 
     func isRotationAllowed(_ playerView: UIView?) -> Bool
     func refreshContent<T>(with contentModel: T)
@@ -230,10 +230,16 @@ class DockPlayer {
 
     // MARK: - Methods
     func initialize<T>(_ detailVC: DockPlayerDelegate, for content: T, with imageView: UIImageView? = nil) {
-        setOpeningAnimationFromImage(imageView) /// This will save animatorFrame and Image for sweet opening animation
-//        detailVC.contentViewModel = content
-        detailBaseController = detailVC
-        dockableView = detailVC.view
+        if detailExists() {
+            resetFrame {
+                self.detailBaseController?.refreshContent(with: content)
+            }
+        } else {
+            setOpeningAnimationFromImage(imageView) /// This will save animatorFrame and Image for sweet opening animation
+//            detailVC.contentViewModel = content
+            detailBaseController = detailVC
+            dockableView = detailVC.view
+        }
     }
 
     func bringDockPlayerToTop(completion: (() -> Void)? = nil) {
@@ -346,8 +352,8 @@ class DockPlayer {
             return
         }
 
-        if isPad, var widthConstraint = detailBaseController?.playerWidthConstraint {
-            widthConstraint = widthConstraint.setMultiplier(multiplier: minimumMultiplerForHorizontalMovement)
+        if isPad, let widthConstraint = detailBaseController?.playerWidthConstraint.setMultiplier(multiplier: minimumMultiplerForHorizontalMovement) {
+            detailBaseController?.playerWidthConstraint = widthConstraint
         }
 
         isBeingReset = true
@@ -529,8 +535,8 @@ class DockPlayer {
             return
         }
 
-        if isPad, var widthConstraint = detailBaseController?.playerWidthConstraint {
-            widthConstraint = widthConstraint.setMultiplier(multiplier: minimumMultiplerForHorizontalMovement)
+        if isPad, let widthConstraint = detailBaseController?.playerWidthConstraint.setMultiplier(multiplier: minimumMultiplerForHorizontalMovement) {
+            detailBaseController?.playerWidthConstraint = widthConstraint
         }
         bringDockPlayerToTop()
         detailBaseController?.docking(percentMoved: 1)
@@ -563,8 +569,8 @@ class DockPlayer {
             return
         }
 
-        if isPad, var widthConstraint = detailBaseController?.playerWidthConstraint {
-            widthConstraint = widthConstraint.setMultiplier(multiplier: 1.0)
+        if isPad, let widthConstraint = detailBaseController?.playerWidthConstraint.setMultiplier(multiplier: 1.0) {
+            detailBaseController?.playerWidthConstraint = widthConstraint
         }
         detailBaseController?.docking(percentMoved: 0)
         let dockFrame = CGRect(x: self.finalDistanceFromLeft, y: self.finalDistanceFromTop, width: self.minWidth, height: self.minHeight)
@@ -611,8 +617,8 @@ class DockPlayer {
 
         guard let dockView = dockableView, let detailControllerRootViewSubviews = getDetailSubviews() else { return }
 
-        if isPad, var widthConstraint = detailBaseController?.playerWidthConstraint {
-            widthConstraint = widthConstraint.setMultiplier(multiplier: minimumMultiplerForHorizontalMovement + percentMoved * horizontalDeltaMultiplier)
+        if isPad, let widthConstraint = detailBaseController?.playerWidthConstraint.setMultiplier(multiplier: minimumMultiplerForHorizontalMovement + percentMoved * horizontalDeltaMultiplier) {
+            detailBaseController?.playerWidthConstraint = widthConstraint
         }
         detailBaseController?.docking(percentMoved: percentMoved)
         overDockingPoint = currentPoint.y
