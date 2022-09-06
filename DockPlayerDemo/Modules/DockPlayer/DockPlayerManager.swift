@@ -69,7 +69,7 @@ class DockPlayer {
             self.makeViewDockable()
         }
     }
-    var animator: (frame: CGRect?, imageView: UIImageView?)
+    var animator: (frame: CGRect?, image: UIImage?)
     var playerView: UIView? {
         didSet {
             DispatchQueue.main.async { [weak self] in
@@ -272,7 +272,18 @@ class DockPlayer {
     func setOpeningAnimationFromImage(_ imgView: UIImageView?) {
         guard let imageView = imgView, let imageOrigin = imageView.superview?.convert(imageView.frame.origin, to: nil) else { return }
         animator.frame = CGRect(x: imageOrigin.x, y: imageOrigin.y, width: imageView.frame.width, height: imageView.frame.height)
-        animator.imageView = imageView
+        animator.image = imageView.image
+    }
+    
+    func setState(to state: DockState) {
+        switch state {
+        case .undocked:
+            updateDetailViewFrameToFullMode()
+        case .docked:
+            updateDetailViewFrameToSmallMode()
+        default:
+            break
+        }
     }
 
     // MARK: Remove dock player
@@ -437,7 +448,7 @@ class DockPlayer {
             return
         }
 
-        detailBaseController?.setOpeningPoster(with: animator.imageView?.image)
+        detailBaseController?.setOpeningPoster(with: animator.image)
         detailBaseController?.view.clipsToBounds = true
         dockView.clipsToBounds = true
         dockView.frame = frame
@@ -459,7 +470,7 @@ class DockPlayer {
 
     private func getDetailSubviews() -> [UIView]? {
         return detailBaseController?.view.subviews.filter({ subview in
-            return subview != playerView
+            return subview != playerView && subview.tag != 99
         })
     }
 

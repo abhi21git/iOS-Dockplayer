@@ -12,6 +12,7 @@ class DetailPageController: BaseController {
 
     // MARK: - Outlets
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var pipButton: UIButton!
     @IBOutlet weak var playerContainerView: UIView!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var iPadRightContainerView: UIView!
@@ -70,6 +71,14 @@ class DetailPageController: BaseController {
         DockPlayer.manager.removeDockPlayer()
     }
     
+    @IBAction func pipButtonTapped() {
+        if pipButton.isSelected {
+            DockPlayer.manager.setState(to: .undocked)
+        } else {
+            DockPlayer.manager.setState(to: .docked)
+        }
+    }
+    
     // MARK: - Methods
     func setupUI() {
         view.backgroundColor = .black
@@ -126,6 +135,13 @@ extension DetailPageController: DockPlayerDelegate {
     }
     
     func updatePlayerControls(for dockState: DockPlayer.DockState, _ isPlayerInitialized: Bool, _ isFlicked: Bool) {
-        // Add code here
+        switch dockState {
+        case .docked:
+            pipButton.isSelected = true
+        case .undocked:
+            pipButton.isSelected = false
+        default:
+            break
+        }
     }
 }
