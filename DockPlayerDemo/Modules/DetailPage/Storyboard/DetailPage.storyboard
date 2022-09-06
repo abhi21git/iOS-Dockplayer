@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -94,11 +94,11 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4UE-FK-c3A">
                                                 <rect key="frame" x="20" y="78.666666666666629" width="350" height="1224.666666666667"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <mutableString key="text">Deadpool is a 2016 American superhero film based on the Marvel Comics character of the same name. Distributed by 20th Century Fox, it is a spin-off in the X-Men film series and the eighth installment overall. Directed by Tim Miller from a screenplay by Rhett Reese and Paul Wernick, it stars Ryan Reynolds in the title role alongside Morena Baccarin, Ed Skrein, T. J. Miller, Gina Carano, and Brianna Hildebrand. In the film, Wade Wilson hunts the man who gave him mutant abilities and a scarred physical appearance, becoming the antihero Deadpool.
+                                                <string key="text">Deadpool is a 2016 American superhero film based on the Marvel Comics character of the same name. Distributed by 20th Century Fox, it is a spin-off in the X-Men film series and the eighth installment overall. Directed by Tim Miller from a screenplay by Rhett Reese and Paul Wernick, it stars Ryan Reynolds in the title role alongside Morena Baccarin, Ed Skrein, T. J. Miller, Gina Carano, and Brianna Hildebrand. In the film, Wade Wilson hunts the man who gave him mutant abilities and a scarred physical appearance, becoming the antihero Deadpool.
 
 Development of a Deadpool film starring Reynolds began in February 2004, before he played the character in X-Men Origins: Wolverine in 2009. Reese and Wernick were hired for a spinoff in 2010 and worked with Reynolds to adapt the character more faithfully (including his fourth wall breaking) after the portrayal in Wolverine was criticized. Miller was hired in 2011, marking his directorial debut. An enthusiastic response to leaked test footage he created with Reynolds led to a green-light from Fox in 2014. Additional casting began in early 2015, and filming took place in Vancouver, British Columbia, from March to May of that year. Several vendors provided visual effects for the film, ranging from the addition of blood and gore to the creation of the CG character Colossus.
 
-Deadpool was released in the United States on February 12, 2016, after an unconventional marketing campaign. The film achieved both financial and critical success. It earned over $782 million against a $58 million budget, becoming the ninth-highest-grossing film of 2016 and breaking numerous records, including highest-grossing X-Men film and R-rated film at the time. Critics praised Reynolds' performance, the film's style and faithfulness to the comics, along with its action sequences, though some criticized the plot as formulaic and were divided on the film's adult humor. It received many awards and nominations, including two Critics' Choice Awards and two Golden Globe nominations. A sequel, Deadpool 2, was released in 2018. Following the acquisition of 21st Century Fox by Disney, a third film is in development at Marvel Studios.</mutableString>
+Deadpool was released in the United States on February 12, 2016, after an unconventional marketing campaign. The film achieved both financial and critical success. It earned over $782 million against a $58 million budget, becoming the ninth-highest-grossing film of 2016 and breaking numerous records, including highest-grossing X-Men film and R-rated film at the time. Critics praised Reynolds' performance, the film's style and faithfulness to the comics, along with its action sequences, though some criticized the plot as formulaic and were divided on the film's adult humor. It received many awards and nominations, including two Critics' Choice Awards and two Golden Globe nominations. A sequel, Deadpool 2, was released in 2018. Following the acquisition of 21st Century Fox by Disney, a third film is in development at Marvel Studios.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -142,6 +142,22 @@ Deadpool was released in the United States on February 12, 2016, after an unconv
                                     <constraint firstItem="JCU-Ku-RgC" firstAttribute="top" secondItem="l25-WY-Evc" secondAttribute="top" id="eTs-pw-S9g"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" tag="99" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mWL-Bs-DuW">
+                                <rect key="frame" x="340" y="223.33333333333334" width="50" height="40.000000000000028"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="mAs-Mu-aJF"/>
+                                    <constraint firstAttribute="width" constant="50" id="zy3-by-e5u"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="pip.enter" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="semibold"/>
+                                </state>
+                                <state key="selected" image="pip.exit" catalog="system"/>
+                                <connections>
+                                    <action selector="pipButtonTapped" destination="Y6W-OH-hqX" eventType="touchUpInside" id="cis-Nf-PeD"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOj-iP-Lh9">
                                 <rect key="frame" x="0.0" y="44" width="50" height="40"/>
                                 <constraints>
@@ -168,6 +184,7 @@ Deadpool was released in the United States on February 12, 2016, after an unconv
                             <constraint firstItem="QDv-NZ-k4r" firstAttribute="leading" secondItem="l25-WY-Evc" secondAttribute="leading" id="Bt3-nM-wwL"/>
                             <constraint firstItem="l25-WY-Evc" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="CSP-EZ-icM"/>
                             <constraint firstItem="l25-WY-Evc" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="J6n-au-ywT"/>
+                            <constraint firstItem="mWL-Bs-DuW" firstAttribute="bottom" secondItem="l25-WY-Evc" secondAttribute="bottom" id="PuF-wZ-OrI"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="DOx-Pl-QiB" secondAttribute="trailing" id="SMr-8M-i06"/>
                             <constraint firstItem="QDv-NZ-k4r" firstAttribute="top" secondItem="l25-WY-Evc" secondAttribute="bottom" id="TKE-38-zIb"/>
                             <constraint firstItem="l25-WY-Evc" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" placeholder="YES" id="ZUd-ao-Vwh"/>
@@ -175,6 +192,7 @@ Deadpool was released in the United States on February 12, 2016, after an unconv
                             <constraint firstItem="QDv-NZ-k4r" firstAttribute="trailing" secondItem="l25-WY-Evc" secondAttribute="trailing" id="bJB-uM-7Pl"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="leading" secondItem="tOj-iP-Lh9" secondAttribute="leading" id="cAQ-eO-7ON"/>
                             <constraint firstItem="l25-WY-Evc" firstAttribute="width" secondItem="5EZ-qb-Rvc" secondAttribute="width" multiplier="0.5" placeholder="YES" id="iwf-gK-9ft"/>
+                            <constraint firstItem="mWL-Bs-DuW" firstAttribute="trailing" secondItem="l25-WY-Evc" secondAttribute="trailing" id="naB-dh-VvI"/>
                             <constraint firstAttribute="bottom" secondItem="QDv-NZ-k4r" secondAttribute="bottom" id="r78-Wa-Iiq"/>
                         </constraints>
                         <variation key="default">
@@ -193,6 +211,7 @@ Deadpool was released in the United States on February 12, 2016, after an unconv
                         <outlet property="BottomContainerView" destination="Xm3-51-2xI" id="dRi-2b-5tf"/>
                         <outlet property="backButton" destination="tOj-iP-Lh9" id="aBa-xT-Sw2"/>
                         <outlet property="iPadRightContainerView" destination="qIa-Na-f69" id="xlu-Am-Up4"/>
+                        <outlet property="pipButton" destination="mWL-Bs-DuW" id="4Ea-p1-VFb"/>
                         <outlet property="playerContainerView" destination="l25-WY-Evc" id="E4G-y5-ahY"/>
                         <outlet property="posterImageView" destination="JCU-Ku-RgC" id="F4H-HF-GRJ"/>
                     </connections>
@@ -207,6 +226,8 @@ Deadpool was released in the United States on February 12, 2016, after an unconv
         <image name="clip1" width="1200" height="628"/>
         <image name="clip2" width="2048" height="1152"/>
         <image name="clip3" width="1024" height="776"/>
+        <image name="pip.enter" catalog="system" width="128" height="96"/>
+        <image name="pip.exit" catalog="system" width="128" height="96"/>
         <image name="posterImage" width="1600" height="900"/>
         <namedColor name="AccentColor">
             <color red="0.58823529411764708" green="0.11764705882352941" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
